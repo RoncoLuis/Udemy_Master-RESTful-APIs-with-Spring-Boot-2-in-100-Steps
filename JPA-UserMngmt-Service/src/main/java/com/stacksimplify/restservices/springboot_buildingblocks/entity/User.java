@@ -23,6 +23,7 @@ public class User {
     private String ssn;
 
     //note: no argument constructor is MANDATORY! for spring jpa
+	//note: this is comment example
     public User() {}
 
     //fields constructor is optional
