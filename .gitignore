@@ -4,6 +4,11 @@ JPA-UserMngmt-Service/!.mvn/wrapper/maven-wrapper.jar
 JPA-UserMngmt-Service/!**/src/main/**/target/
 JPA-UserMngmt-Service/!**/src/test/**/target/
 
+ExceptionHandling-ResponseStatusCodes/target/
+ExceptionHandling-ResponseStatusCodes/!.mvn/wrapper/maven-wrapper.jar
+ExceptionHandling-ResponseStatusCodes/!**/src/main/**/target/
+ExceptionHandling-ResponseStatusCodes/!**/src/test/**/target/
+
 ### STS ###
 .apt_generated
 .classpath

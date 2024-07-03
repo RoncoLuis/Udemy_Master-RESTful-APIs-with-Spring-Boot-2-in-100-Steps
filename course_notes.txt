@@ -1,0 +1,7 @@
+Project #4 Exception Handling - Response status
+- Spring 5 introduces ResponseStatusException class for handling restful API's basic (common) errors.
+- It's and alternative to @ResponseStatus annotation
+- ResponseStatusException it's a RuntimeException with the following structure:
+-> status: http status
+-> reason : message explaining the exception
+-> cause : throwable cause
