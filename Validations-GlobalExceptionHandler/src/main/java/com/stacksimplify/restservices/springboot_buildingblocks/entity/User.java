@@ -1,6 +1,8 @@
 package com.stacksimplify.restservices.springboot_buildingblocks.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="Users")
@@ -9,16 +11,24 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @NotEmpty(message="Username is mandatory field. Please provide username")
     @Column(name="username",length = 25, nullable = false, unique = true)
     private String username;
+
+    @Size(min=2, message = "firstname should have at least 2 characters")
     @Column(name="firstname")
     private String firstName;
+
     @Column(name="lastname")
     private String lastName;
+
     @Column(name="email")
     private String email;
+
     @Column(name = "role")
     private String role;
+
     @Column(name = "ssn")
     private String ssn;
 

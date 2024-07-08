@@ -10,12 +10,16 @@ package com.stacksimplify.restservices.springboot_buildingblocks.controller;
 import com.stacksimplify.restservices.springboot_buildingblocks.entity.User;
 import com.stacksimplify.restservices.springboot_buildingblocks.exceptions.UserExistException;
 import com.stacksimplify.restservices.springboot_buildingblocks.exceptions.UserNotFoundException;
+import com.stacksimplify.restservices.springboot_buildingblocks.exceptions.UsernameNotFoundException;
 import com.stacksimplify.restservices.springboot_buildingblocks.service.UserService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -25,6 +29,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
+@Validated //investigate this annotation
 public class UserController {
     @Autowired
     private UserService userService;
@@ -38,7 +43,7 @@ public class UserController {
     //This object (HttpHeaders) is used to store additional headers that will be sent along with the HTTP response.
     //"Location" header informs the client about the location of the newly created resource.
     @PostMapping("/users")
-    public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder builder){
+    public ResponseEntity<Void> createUser(@Valid @RequestBody User user, UriComponentsBuilder builder){
         try{
             userService.createUser(user);
             HttpHeaders httpHeaders = new HttpHeaders();
@@ -51,7 +56,8 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     /*the name in @PathVariable("id") is not required if the parameter has the same name as the argument*/
-    public Optional<User> getUserById(@PathVariable("id") Long id) {
+    /*The annotated element @Min must be a number whose value must be higher or equal to the specified minimum.*/
+    public Optional<User> getUserById(@PathVariable("id") @Min(1) Long id) {
         try{
             return userService.getUserById(id);
         }catch(UserNotFoundException ex){
@@ -78,7 +84,10 @@ public class UserController {
     }
 
     @GetMapping("/users/byusername/{username}")
-    public User getUserByUsername(@PathVariable("username") String username){
-        return userService.getUserByUsername(username);
+    public User getUserByUsername(@PathVariable("username") String username) throws UsernameNotFoundException {
+        User user =  userService.getUserByUsername(username);
+        if(user == null)
+            throw new UsernameNotFoundException("Username ["+username+"] not found in User repository");
+        return user;
     }
 }
