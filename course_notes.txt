@@ -5,3 +5,56 @@ Project #4 Exception Handling - Response status
 -> status: http status
 -> reason : message explaining the exception
 -> cause : throwable cause
+
+Project #5 Validations-GlobalExceptionHandler
+
+Spring boot support strong out of the box about validation. JSR 380 is the Java API for bean validation that involves the following annotations:
+ - @NotNull
+ - @Min
+ - @Max
+ - @Valid annotation implements automatically default JSR 380 (Hibernate Validator)
+ - When exception occurs -> MethodArgumentNotValidException
+
+==== Common Validation Annotations ====
+
+@NotNull  - Property is not null
+@Size     - property value has a size between min and max
+@Min      - property values is no smaller than the attribute value
+@Max      - property values is no larger than the attribute value
+@Email    - annotated property is a valid email address
+@NotBlank - property is not null or whitespace
+@NotEmpty - property is not null or empty
+
+Global exception handling - can be applied to manage general exceptions. Can be applied in a wide range of controllers. The annotation @ControllerAdvice it's applicable to all classes that use @Controller or @RestController annotation.
+
+The @ExceptionHandler annotations it's commonly used for specific classes or methods. However, if we combine with @ControllerAdvice we can use this annotation in global exception handler.
+
+@RestControllerAdvice is the combination of @ControllerAdvice and @ResponseBody annotation. This annotation is for handling exception in RESTful services. If we don't use it can still work using @ControllerAdvice and @ResponseBody annotations.
+
+Use case combination of @ControllerAdvice annotation
+
+1. @ControllerAdvice      & ResponseEntityExceptionHandler (class)
+- MethodArgumentNotValidException
+- HttpRequestMethodNotSupportedException
+
+2. @ControllerAdvice      & @ExceptionHandler
+- pre-defined exceptions like ConstraintViolationException
+- custom exceptions      like UsernameNotFoundException
+
+3. @RestControllerAdvice  & @ExceptionHandler
+- custom exceptions      like UsernameNotFoundException
+- pre-defined exceptions like Exception.class
+
+Note: For Spring version equal or greater than 3.x.x -> spring boot started validation is required
+
+Once we handle the exception at entity level, we can see 500 error status code which is not fine. Now at the controller level we need to handle the Response Body to show the final user a more confortable error message.
+
+
+
+
+
+
+
+
+
+ 

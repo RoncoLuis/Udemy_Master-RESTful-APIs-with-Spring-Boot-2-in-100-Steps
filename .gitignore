@@ -9,6 +9,11 @@ ExceptionHandling-ResponseStatusCodes/!.mvn/wrapper/maven-wrapper.jar
 ExceptionHandling-ResponseStatusCodes/!**/src/main/**/target/
 ExceptionHandling-ResponseStatusCodes/!**/src/test/**/target/
 
+Validations-GlobalExceptionHandler/target/
+Validations-GlobalExceptionHandler/!.mvn/wrapper/maven-wrapper.jar
+Validations-GlobalExceptionHandler/!**/src/main/**/target/
+Validations-GlobalExceptionHandler/!**/src/test/**/target/
+
 ### STS ###
 .apt_generated
 .classpath
